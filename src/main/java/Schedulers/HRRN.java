@@ -11,6 +11,30 @@ public class HRRN {
     public HRRN() { }
 
     public List<Process> schedule(List<Process> processes) {
+        List<Process> adjList = new ArrayList<>(processes);
+        List<Process> q = new ArrayList<>();
+        long timer = adjList.get(0).getArrivaltime();
+        Process current = adjList.get(0);
+        adjList.remove(0);
+
+        while(!adjList.isEmpty() || !q.isEmpty()){
+            while(!adjList.isEmpty() && (adjList.get(0).getArrivaltime()<= timer)){
+                adjList.get(0).setStarttime(adjList.get(0).getArrivaltime());
+                q.add(adjList.get(0));
+                adjList.remove(0);
+            }
+            q.removeIf(p -> p.getBursttime() == 0);
+            if(!q.isEmpty()) current = shortestBurstTime(current, q);
+            if(q.isEmpty()) timer += adjList.get(0).getArrivaltime();
+            else {
+                timer += current.getServicetime();
+            }
+            current.setBursttime(0);
+        }
+        calculateValues(processes);
+        return processes;
+
+        /*
         List<Process> waiting = new ArrayList<>();
         Queue<Process> q = new LinkedList<>(processes);
         List<Process> finished = new ArrayList<>();
@@ -39,6 +63,18 @@ public class HRRN {
         }
         calculateValues(finished);
         return finished;
+        */
+    }
+
+    private Process shortestBurstTime(Process p, List<Process> proc){
+        proc.add(p);
+        for (Process a : proc) {
+            if ((a.getServicetime() < p.getServicetime())) {
+                p = a;
+            }
+        }
+        proc.remove(p);
+        return p;
     }
 
     private Process findNewCurrentInQ(Process current, List<Process> waiting, long timer) {

@@ -1,15 +1,16 @@
 import Basics.Process;
 import Basics.ServiceTimeComparator;
-//import Basics.XYLineChart_AWT;
+import Basics.XYLineChart_AWT;
 
+import Schedulers.HRRN;
 import Schedulers.MLFB;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-//
-//import org.jfree.ui.RefineryUtilities;
+
+import org.jfree.ui.RefineryUtilities;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -135,16 +136,16 @@ public class Main {
 
         plot(cluster, "RR (tq=8)");
         for(Process p : processes3) p.reset();
-
+        */
 
 
 
         //7. HRRN
-        HRRN mlfb1= new HRRN();
-        List<Process> mlfb8_res = new ArrayList<>(mlfb1.schedule(processes3));
+        HRRN hrrn= new HRRN();
+        List<Process> hrrn_res = new ArrayList<>(hrrn.schedule(processes3));
 
-        Collections.sort(mlfb8_res, new ServiceTimeComparator());
-        makeClusters(cluster, mlfb8_res);
+        Collections.sort(hrrn_res, new ServiceTimeComparator());
+        makeClusters(cluster, hrrn_res);
 
         glob_par = calculate_averages(cluster);
         System.out.println("7. HRRN");
@@ -153,9 +154,9 @@ public class Main {
         plot(cluster, "HRRN");
         for(Process p : processes3) p.reset();
 
-         */
 
 
+        /*
         //8. MLFB
         long timeslice1 = 8;
 
@@ -169,9 +170,9 @@ public class Main {
         System.out.println("8. MLFB1");
         printResult(glob_par);
 
-//        plot(cluster, "MLFB1");
+        plot(cluster, "MLFB1");
         for(Process p : processes3) p.reset();
-
+         */
 
 
     }
@@ -300,11 +301,11 @@ public class Main {
         System.out.println();
     }
 
-//    private static void plot(List<Process> cluster, String titel) {
-//        XYLineChart_AWT chart = new XYLineChart_AWT(titel, titel, cluster);
-//        chart.pack( );
-//        RefineryUtilities.centerFrameOnScreen( chart );
-//        chart.setVisible( true );
-//    }
+    private static void plot(List<Process> cluster, String titel) {
+        XYLineChart_AWT chart = new XYLineChart_AWT(titel, titel, cluster);
+        chart.pack( );
+        RefineryUtilities.centerFrameOnScreen( chart );
+        chart.setVisible( true );
+    }
 
 }
