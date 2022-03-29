@@ -152,6 +152,7 @@ public class Main {
         printResult(glob_par);
 
         plot(cluster, "HRRN");
+
         for(Process p : processes3) p.reset();
 
 
