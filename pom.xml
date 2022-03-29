@@ -15,9 +15,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jfree</groupId>
+            <groupId>jfreechart</groupId>
             <artifactId>jfreechart</artifactId>
-            <version>1.5.3</version>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
