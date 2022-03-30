@@ -39,7 +39,7 @@ public class Main {
 
 
         //1.FCFS
-
+/*
         FCFS fcfs = new FCFS();
         List<Process> fcfs_res = new ArrayList<>(fcfs.schedule(processes3));
 
@@ -121,12 +121,12 @@ public class Main {
         addToDataset(cluster, dataset_wait, dataset_tat, "RR (q=4)");
         for(Process p : processes3) p.reset();
 
-
+*/
 
         //6. RR (q=8)
 
-        RR rr8 = new RR(8);
-        List<Process> rr_res8 = new ArrayList<>(rr8.schedule(processes3));
+        RR rr8 = new RR(10000);
+        List<Process> rr_res8 = new ArrayList<>(rr8.schedule(test));
 
         Collections.sort(rr_res8, new ServiceTimeComparator());
         makeClusters(cluster, rr_res8);
