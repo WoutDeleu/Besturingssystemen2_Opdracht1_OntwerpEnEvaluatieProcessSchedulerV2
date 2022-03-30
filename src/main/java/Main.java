@@ -39,7 +39,7 @@ public class Main {
 
 
         //1.FCFS
-
+/*
         FCFS fcfs = new FCFS();
         List<Process> fcfs_res = new ArrayList<>(fcfs.schedule(processes3));
 
@@ -90,6 +90,8 @@ public class Main {
         for(Process p : processes3) p.reset();
 
 
+ */
+
 
         //4. RR (q=2)
 
@@ -119,8 +121,7 @@ public class Main {
 
 
         addToDataset(cluster, dataset_wait, dataset_tat, "RR (q=4)");
-        for(Process p : test) p.reset();
-
+        for(Process p : processes3) p.reset();
 
         //6. RR (q=8)
 
@@ -137,7 +138,7 @@ public class Main {
         addToDataset(cluster, dataset_wait, dataset_tat, "RR (q=8)");
         for(Process p : processes3) p.reset();
 
-
+/*
 
 
         //7. HRRN
@@ -190,7 +191,7 @@ public class Main {
 
         addToDataset(cluster, dataset_wait, dataset_tat, "MLFB2");
         for(Process p : processes3) p.reset();
-
+*/
 
         // Plotten
         plot( "Gen. Tat", dataset_tat );

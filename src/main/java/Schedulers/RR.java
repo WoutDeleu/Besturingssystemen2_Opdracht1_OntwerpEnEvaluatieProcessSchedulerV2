@@ -1,9 +1,7 @@
 package Schedulers;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import Basics.Process;
 
 public class RR {
@@ -35,9 +33,11 @@ public class RR {
                     temp.setEndtime(timer);
                 }
             }
+
             if(q.isEmpty() && !adjList.isEmpty() && timer<adjList.get(0).getArrivaltime()) {
                 timer = adjList.get(0).getArrivaltime();
             }
+
             int count = 0;
             while(!adjList.isEmpty() && adjList.get(0).getArrivaltime()<=timer){
                 adjList.get(0).setStarttime(timer);
