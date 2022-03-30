@@ -7,10 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class MLFB {
+public class MLFB_FCFS {
     private long timeSlice;
 
-    public MLFB(long timeSlice) {
+    public MLFB_FCFS(long timeSlice) {
         this.timeSlice = timeSlice;
     }
 

@@ -159,10 +159,10 @@ public class Main {
 
 
 
-        //8. MLFB
+        //8. MLFB_FCFS
         long timeslice1 = 8;
 
-        MLFB mlfb1 = new MLFB(timeslice1);
+        MLFB_FCFS mlfb1 = new MLFB_FCFS(timeslice1);
         List<Process> mlfb8_res = new ArrayList<>(mlfb1.schedule(processes3));
 
         Collections.sort(mlfb8_res, new ServiceTimeComparator());
