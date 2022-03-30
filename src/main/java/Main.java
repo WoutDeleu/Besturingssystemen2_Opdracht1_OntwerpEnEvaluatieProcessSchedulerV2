@@ -46,7 +46,7 @@ public class Main {
         Collections.sort(fcfs_res, new ServiceTimeComparator());
         makeClusters(cluster, fcfs_res);
 
-        glob_par = calculate_averages(cluster);
+        glob_par = calculateAverages(cluster);
         System.out.println("1. FCFS");
         printResult(glob_par);
 
@@ -63,7 +63,7 @@ public class Main {
         Collections.sort(sjf_res, new ServiceTimeComparator());
         makeClusters(cluster, sjf_res);
 
-        glob_par = calculate_averages(cluster);
+        glob_par = calculateAverages(cluster);
         System.out.println("2. SJN");
         printResult(glob_par);
 
@@ -82,7 +82,7 @@ public class Main {
         Collections.sort(srt_res, new ServiceTimeComparator());
         makeClusters(cluster, srt_res);
 
-        glob_par = calculate_averages(cluster);
+        glob_par = calculateAverages(cluster);
         System.out.println("3. SRT");
         printResult(glob_par);
 
@@ -99,7 +99,7 @@ public class Main {
         Collections.sort(rr_res2, new ServiceTimeComparator());
         makeClusters(cluster, rr_res2);
 
-        glob_par = calculate_averages(cluster);
+        glob_par = calculateAverages(cluster);
         System.out.println("4. RR (tq=2)");
         printResult(glob_par);
 
@@ -113,7 +113,7 @@ public class Main {
         Collections.sort(rr_res4, new ServiceTimeComparator());
         makeClusters(cluster, rr_res4);
 
-        glob_par = calculate_averages(cluster);
+        glob_par = calculateAverages(cluster);
         System.out.println("5. RR (tq=4)");
         printResult(glob_par);
 
@@ -131,7 +131,7 @@ public class Main {
         Collections.sort(rr_res8, new ServiceTimeComparator());
         makeClusters(cluster, rr_res8);
 
-        glob_par = calculate_averages(cluster);
+        glob_par = calculateAverages(cluster);
         System.out.println("6. RR (tq=8)");
         printResult(glob_par);
 
@@ -148,7 +148,7 @@ public class Main {
         Collections.sort(hrrn_res, new ServiceTimeComparator());
         makeClusters(cluster, hrrn_res);
 
-        glob_par = calculate_averages(cluster);
+        glob_par = calculateAverages(cluster);
         System.out.println("7. HRRN");
         printResult(glob_par);
 
@@ -168,7 +168,7 @@ public class Main {
         Collections.sort(mlfb8_res, new ServiceTimeComparator());
         makeClusters(cluster, mlfb8_res);
 
-        glob_par = calculate_averages(cluster);
+        glob_par = calculateAverages(cluster);
         System.out.println("8. MLFB1");
         printResult(glob_par);
 
@@ -185,7 +185,7 @@ public class Main {
         Collections.sort(mlfb9_res, new ServiceTimeComparator());
         makeClusters(cluster, mlfb9_res);
 
-        glob_par = calculate_averages(cluster);
+        glob_par = calculateAverages(cluster);
         System.out.println("9. MLFB2");
         printResult(glob_par);
 
@@ -297,7 +297,7 @@ public class Main {
         }
     }
 
-    private static long[] calculate_averages(List<Process> cluster) {
+    private static long[] calculateAverages(List<Process> cluster) {
         long gem_omlooptijd=0, gem_gen_omlooptijd=0, gem_wachttijd = 0;
         for(int i =0; i<100; i++) {
             Process current = cluster.get(i);
