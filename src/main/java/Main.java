@@ -179,7 +179,7 @@ public class Main {
         //9. MLFB_FCFS
         long timeslice2 = 8;
 
-        MLFB_FCFS mlfb2 = new MLFB_FCFS(timeslice1);
+        MLFB_RR mlfb2 = new MLFB_RR(timeslice2);
         List<Process> mlfb9_res = new ArrayList<>(mlfb2.schedule(processes3));
 
         Collections.sort(mlfb9_res, new ServiceTimeComparator());
