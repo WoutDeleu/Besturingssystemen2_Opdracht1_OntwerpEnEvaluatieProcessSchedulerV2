@@ -20,13 +20,13 @@ import java.util.List;
 // source : https://www.tutorialspoint.com/jfreechart/jfreechart_xy_chart.htm
 
 public class XYLineChart_AWT extends ApplicationFrame {
-    public XYLineChart_AWT(String applicationTitle, String chartTitle , List<Process> processes) {
+    public XYLineChart_AWT(String applicationTitle, String chartTitle , XYDataset dataset) {
         super(applicationTitle);
         JFreeChart xylineChart = ChartFactory.createXYLineChart(
                 chartTitle ,
                 "ServiceTime" ,
-                "Gen. TAT/Waittime" ,
-                createDataset(processes) ,
+                chartTitle ,
+                dataset ,
                 PlotOrientation.VERTICAL ,
                 true , false , false
         );
@@ -44,23 +44,5 @@ public class XYLineChart_AWT extends ApplicationFrame {
         renderer.setSeriesStroke( 2 , new BasicStroke( 2.0f ) );
         plot.setRenderer( renderer );
         setContentPane( chartPanel );
-    }
-
-    private XYDataset createDataset(List<Process> processes) {
-
-        final XYSeries waittime = new XYSeries( "waittime" );
-        for(int i = 0; i<100; i++) {
-            waittime.add(processes.get(i).getServicetime(), processes.get(i).getWaittime());
-        }
-
-        final XYSeries tat = new XYSeries( "gen. tat" );
-        for(int i = 0; i<100; i++) {
-            tat.add(processes.get(i).getServicetime(), processes.get(i).getGenTat());
-        }
-
-        final XYSeriesCollection dataset = new XYSeriesCollection( );
-        dataset.addSeries(waittime);
-        dataset.addSeries(tat);
-        return dataset;
     }
 }

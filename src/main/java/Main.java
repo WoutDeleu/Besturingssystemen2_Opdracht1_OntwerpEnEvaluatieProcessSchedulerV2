@@ -2,8 +2,9 @@ import Basics.Process;
 import Basics.ServiceTimeComparator;
 import Basics.XYLineChart_AWT;
 
-import Schedulers.HRRN;
-import Schedulers.MLFB;
+import Schedulers.*;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -31,6 +32,9 @@ public class Main {
 
         List<Process> cluster = new ArrayList<>(100);
 
+        XYSeriesCollection dataset_wait = new XYSeriesCollection();
+        XYSeriesCollection dataset_tat = new XYSeriesCollection();
+
         long[] glob_par;
 
         //SchedulingAlgorithms
@@ -39,7 +43,7 @@ public class Main {
 
         // FCFS
 
-        /*
+
 
         FCFS fcfs = new FCFS();
         List<Process> fcfs_res = new ArrayList<>(fcfs.schedule(processes3));
@@ -51,7 +55,7 @@ public class Main {
         System.out.println("1. FCFS");
         printResult(glob_par);
 
-        plot(cluster, "FCFS");
+        addToDataset(cluster, dataset_wait, dataset_tat, "FCFS");
         for(Process p : processes3) p.reset();
 
 
@@ -68,7 +72,7 @@ public class Main {
         System.out.println("2. SJN");
         printResult(glob_par);
 
-        plot(cluster, "SJN/SPN");
+        addToDataset(cluster, dataset_wait, dataset_tat, "SJN");
 
 
         for(Process p : processes3) p.reset();
@@ -88,7 +92,7 @@ public class Main {
         System.out.println("3. SRT");
         printResult(glob_par);
 
-        plot(cluster, "SRT");
+        addToDataset(cluster, dataset_wait, dataset_tat, "SRT");
         for(Process p : processes3) p.reset();
 
 
@@ -104,7 +108,7 @@ public class Main {
         System.out.println("4. RR (tq=2)");
         printResult(glob_par);
 
-        plot(cluster, "RR (tq=2)");
+        addToDataset(cluster, dataset_wait, dataset_tat, "RR (q=2)");
         for(Process p : processes3) p.reset();
 
         //5. RR (q=4)
@@ -118,7 +122,8 @@ public class Main {
         System.out.println("5. RR (tq=4)");
         printResult(glob_par);
 
-        plot(cluster, "RR (tq=4)");
+
+        addToDataset(cluster, dataset_wait, dataset_tat, "RR (q=4)");
         for(Process p : processes3) p.reset();
 
 
@@ -134,11 +139,11 @@ public class Main {
         System.out.println("6. RR (tq=8)");
         printResult(glob_par);
 
-        plot(cluster, "RR (tq=8)");
+        addToDataset(cluster, dataset_wait, dataset_tat, "RR (q=8)");
         for(Process p : processes3) p.reset();
-        */
 
 
+        /*
 
         //7. HRRN
         HRRN hrrn= new HRRN();
@@ -151,13 +156,13 @@ public class Main {
         System.out.println("7. HRRN");
         printResult(glob_par);
 
-        plot(cluster, "HRRN");
+        addToDataset(cluster, dataset_wait, dataset_tat, "HRRN");
 
         for(Process p : processes3) p.reset();
 
 
 
-        /*
+
         //8. MLFB
         long timeslice1 = 8;
 
@@ -171,9 +176,12 @@ public class Main {
         System.out.println("8. MLFB1");
         printResult(glob_par);
 
-        plot(cluster, "MLFB1");
+        addToDataset(cluster, dataset_wait, dataset_tat, "MLFB1");
         for(Process p : processes3) p.reset();
          */
+
+        plot( "Gen. Tat", dataset_tat );
+        plot( "Waittime", dataset_wait );
 
 
     }
@@ -302,11 +310,27 @@ public class Main {
         System.out.println();
     }
 
-    private static void plot(List<Process> cluster, String titel) {
-        XYLineChart_AWT chart = new XYLineChart_AWT(titel, titel, cluster);
-        chart.pack( );
-        RefineryUtilities.centerFrameOnScreen( chart );
-        chart.setVisible( true );
+    private static void plot(String titel, XYSeriesCollection dataset) {
+
+        XYLineChart_AWT chart1 = new XYLineChart_AWT(titel, titel, dataset);
+        chart1.pack( );
+        RefineryUtilities.centerFrameOnScreen( chart1 );
+        chart1.setVisible( true );
+    }
+
+    private static void addToDataset(List<Process> cluster, XYSeriesCollection wait, XYSeriesCollection tat, String title) {
+        XYSeries ser_wait = new XYSeries(title);
+        for(int i = 0; i<100; i++) {
+            ser_wait.add(cluster.get(i).getServicetime(), cluster.get(i).getWaittime());
+        }
+
+        XYSeries ser_tat = new XYSeries(title);
+        for(int i = 0; i<100; i++) {
+            ser_tat.add(cluster.get(i).getServicetime(), cluster.get(i).getGenTat());
+        }
+
+        wait.addSeries(ser_wait);
+        tat.addSeries(ser_tat);
     }
 
 }
