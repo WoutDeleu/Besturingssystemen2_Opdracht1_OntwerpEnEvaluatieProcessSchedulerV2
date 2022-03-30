@@ -19,17 +19,20 @@ public class MLFB {
         for(int i=0; i<5; i++) {
             queues.add(new LinkedList<Process>());
         }
+
         Queue<Process> adj = new LinkedList<>(processes);
         List<Process> finished = new ArrayList<>();
 
         Process current = adj.poll();
         long timer = current.getArrivaltime();
+        //toevoegen aan queue 1
         queues.get(0).add(current);
 
         while(finished.size() != processes.size()) {
             checkForNewProcesses(adj, queues, timer);
 
             //queue 1
+            //RR met timeslice=
             if(!queues.get(0).isEmpty()) {
                 current = (Process) queues.get(0).poll();
                 if(current.getStarttime()==0) current.setStarttime(timer);
@@ -40,11 +43,13 @@ public class MLFB {
                 else {
                     timer += timeSlice;
                     current.setBursttime(current.getBursttime()-timeSlice);
+                    //toevoegen aan queue 2
                     queues.get(1).add(current);
                 }
             }
 
             //queue 2
+            //RR met timeslice=
             else if(!queues.get(1).isEmpty()) {
                 current = (Process) queues.get(1).poll();
                 if(2*timeSlice >= current.getBursttime()) {
@@ -54,11 +59,13 @@ public class MLFB {
                 else {
                     timer += 2*timeSlice;
                     current.setBursttime(current.getBursttime()-2*timeSlice);
+                    //toevoegen aan queue 3
                     queues.get(2).add(current);
                 }
             }
 
             //queue 3
+            //RR met timeslice=
             else if(!queues.get(2).isEmpty()) {
                 current = (Process) queues.get(2).poll();
                 if(4*timeSlice >= current.getBursttime()) {
@@ -68,12 +75,14 @@ public class MLFB {
                 else {
                     timer += 4*timeSlice;
                     current.setBursttime(current.getBursttime()-4*timeSlice);
+                    //toevoegen aan queue 3
                     queues.get(3).add(current);
                 }
 
             }
 
             //queue 4
+            //RR met timeslice=
             else if(!queues.get(3).isEmpty()) {
                 current = (Process) queues.get(3).poll();
                 if(8*timeSlice >= current.getBursttime()) {
@@ -83,10 +92,11 @@ public class MLFB {
                 else {
                     timer += 8*timeSlice;
                     current.setBursttime(current.getBursttime()-8*timeSlice);
+                    //toevoegen aan queue 4
                     queues.get(4).add(current);
                 }
             }
-
+            //FCFS
             else if(!queues.get(4).isEmpty()) {
                 current = (Process) queues.get(4).poll();
                 timer += current.getBursttime();

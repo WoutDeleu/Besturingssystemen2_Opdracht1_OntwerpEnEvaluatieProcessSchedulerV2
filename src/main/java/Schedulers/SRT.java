@@ -97,38 +97,6 @@ public class SRT {
         return p;
     }
 
-    private boolean isNextArrivalFirst(List<Process> adjustableList, Process current, long timer) {
-        long time_nextArrival = adjustableList.get(0).getArrivaltime()-timer;
-        long time_currentFinish = current.getServicetime();
-        if(time_nextArrival < time_currentFinish) return true;
-        else return false;
-    }
-    private void replaceCurrent(Process current, Queue<Process> waiting, List<Process> adjustableList, long timer) {
-        waiting.add(new Process(current));
-        current = new Process(adjustableList.get(0));
-        current.setStarttime(timer);
-        adjustableList.remove(0);
-    }
-
-    private void updateCurrent(Process current, long timer, List<Process> adjustableList) {
-        current.setServicetime(current.getServicetime() - (adjustableList.get(0).getArrivaltime() + timer));
-    }
-
-    private void finishCurrent(List<Process> processes, Process current, long timer) {
-        processes.get(current.getId() - 1).setEndtime(timer);
-        processes.get(current.getId() - 1).setStarttime(current.getStarttime());
-    }
-
-    private Process findSRT(Queue<Process> waiting) {
-        Process shortest = waiting.peek();
-        for(Process p : waiting) {
-            if(p.getServicetime() <= shortest.getServicetime()) shortest = p;
-        }
-        Process ret = new Process(shortest);
-        waiting.remove(shortest);
-        return ret;
-    }
-
     private void calculateValues(List<Process> processes) {
         for(Process p : processes) {
             p.setWaittime(p.getEndtime() - p.getServicetime() - p.getArrivaltime());
@@ -137,9 +105,4 @@ public class SRT {
         }
     }
 
-    private void findEndTimeNull(List<Process> processes) {
-        for(Process p : processes) {
-            if(p.getEndtime() == 0) System.out.println(p.getId());
-        }
-    }
 }
