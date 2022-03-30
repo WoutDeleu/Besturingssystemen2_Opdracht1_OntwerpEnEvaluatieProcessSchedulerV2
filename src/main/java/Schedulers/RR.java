@@ -12,19 +12,21 @@ public class RR {
         duur = tq;
     }
     public List<Process> schedule(List<Process> proc){
-        Queue<Process> q = new LinkedList<>();
+        List<Process> q = new ArrayList<>();
         List<Process> adjList = new ArrayList<>(proc);
         long timer = adjList.get(0).getArrivaltime();
 
         Process temp;
 
         while(!adjList.isEmpty() || !q.isEmpty()){
+            boolean added = false;
             if(!q.isEmpty()){
-                temp= q.peek();
-                q.remove();
+                temp= q.get(0);
+                q.remove(0);
                 if((temp.getBursttime()-duur)>0){
                     temp.setBursttime(temp.getBursttime()-duur);
                     q.add(temp);
+                    added = true;
                     timer=timer+duur;
                 }
                 else{
@@ -33,13 +35,17 @@ public class RR {
                     temp.setEndtime(timer);
                 }
             }
-            if(q.isEmpty() && !adjList.isEmpty()) {
+            if(q.isEmpty() && !adjList.isEmpty() && timer<adjList.get(0).getArrivaltime()) {
                 timer = adjList.get(0).getArrivaltime();
             }
-
+            int count = 0;
             while(!adjList.isEmpty() && adjList.get(0).getArrivaltime()<=timer){
                 adjList.get(0).setStarttime(timer);
-                q.add(adjList.get(0));
+                if(added) q.add(count, adjList.get(0));
+                else {
+                    q.add(adjList.get(0));
+                }
+                count++;
                 adjList.remove(0);
             }
         }
