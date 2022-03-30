@@ -176,6 +176,23 @@ public class Main {
         for(Process p : processes3) p.reset();
 
 
+        //9. MLFB_FCFS
+        long timeslice2 = 8;
+
+        MLFB_FCFS mlfb2 = new MLFB_FCFS(timeslice1);
+        List<Process> mlfb9_res = new ArrayList<>(mlfb2.schedule(processes3));
+
+        Collections.sort(mlfb9_res, new ServiceTimeComparator());
+        makeClusters(cluster, mlfb9_res);
+
+        glob_par = calculate_averages(cluster);
+        System.out.println("9. MLFB2");
+        printResult(glob_par);
+
+        addToDataset(cluster, dataset_wait, dataset_tat, "MLFB2");
+        for(Process p : processes3) p.reset();
+
+
         // Plotten
         plot( "Gen. Tat", dataset_tat );
         plot( "Waittime", dataset_wait );
