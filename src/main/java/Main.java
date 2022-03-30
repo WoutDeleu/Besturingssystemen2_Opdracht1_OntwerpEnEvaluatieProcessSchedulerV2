@@ -37,13 +37,8 @@ public class Main {
 
         long[] glob_par;
 
-        //SchedulingAlgorithms
 
-        //1. Schedulers
-
-        // FCFS
-
-
+        //1.FCFS
 
         FCFS fcfs = new FCFS();
         List<Process> fcfs_res = new ArrayList<>(fcfs.schedule(processes3));
@@ -81,7 +76,6 @@ public class Main {
 
         //3.SRT
 
-
         SRT srt = new SRT();
         List<Process> srt_res = new ArrayList<>(srt.schedule(processes3));
 
@@ -98,6 +92,7 @@ public class Main {
 
 
         //4. RR (q=2)
+
         RR rr2= new RR(2);
         List<Process> rr_res2 = new ArrayList<>(rr2.schedule(processes3));
 
@@ -129,8 +124,9 @@ public class Main {
 
 
         //6. RR (q=8)
-        RR mlfb1= new RR(8);
-        List<Process> rr_res8 = new ArrayList<>(mlfb1.schedule(processes3));
+
+        RR rr8 = new RR(8);
+        List<Process> rr_res8 = new ArrayList<>(rr8.schedule(processes3));
 
         Collections.sort(rr_res8, new ServiceTimeComparator());
         makeClusters(cluster, rr_res8);
@@ -143,7 +139,7 @@ public class Main {
         for(Process p : processes3) p.reset();
 
 
-        /*
+
 
         //7. HRRN
         HRRN hrrn= new HRRN();
@@ -178,8 +174,9 @@ public class Main {
 
         addToDataset(cluster, dataset_wait, dataset_tat, "MLFB1");
         for(Process p : processes3) p.reset();
-         */
 
+
+        // Plotten
         plot( "Gen. Tat", dataset_tat );
         plot( "Waittime", dataset_wait );
 
@@ -197,8 +194,6 @@ public class Main {
             Document doc1 = db.parse(file1);
 
             doc1.getDocumentElement().normalize();
-            //System.out.println("Root element: " + doc1.getDocumentElement().getNodeName());
-
             NodeList nodeList1 = doc1.getElementsByTagName("process");
 
             addProcesses(nodeList1, test);

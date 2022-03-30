@@ -1,7 +1,5 @@
 package Basics;
 
-import Schedulers.*;
-
 public class Process {
     private int id;
     private long arrivaltime;
