@@ -38,18 +38,12 @@ public class RR {
                 timer = adjList.get(0).getArrivaltime();
             }
 
-            int count = 0;
             while(!adjList.isEmpty() && adjList.get(0).getArrivaltime()<=timer){
                 adjList.get(0).setStarttime(timer);
-                if(added) q.add(count, adjList.get(0));
-                else {
-                    q.add(adjList.get(0));
-                }
-                count++;
+                q.add(adjList.get(0));
                 adjList.remove(0);
             }
         }
-
         calculateValues(proc);
         return proc;
     }

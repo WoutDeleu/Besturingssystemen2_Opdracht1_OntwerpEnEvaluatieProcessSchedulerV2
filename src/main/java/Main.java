@@ -39,7 +39,7 @@ public class Main {
 
 
         //1.FCFS
-/*
+
         FCFS fcfs = new FCFS();
         List<Process> fcfs_res = new ArrayList<>(fcfs.schedule(processes3));
 
@@ -55,7 +55,6 @@ public class Main {
 
 
 
-
         //2.SJN (=SPN)
         SJF sjf = new SJF();
         List<Process> sjf_res = new ArrayList<>(sjf.schedule(processes3));
@@ -68,7 +67,6 @@ public class Main {
         printResult(glob_par);
 
         addToDataset(cluster, dataset_wait, dataset_tat, "SJN");
-
 
         for(Process p : processes3) p.reset();
 
@@ -90,8 +88,6 @@ public class Main {
         for(Process p : processes3) p.reset();
 
 
- */
-
 
         //4. RR (q=2)
 
@@ -108,6 +104,7 @@ public class Main {
         addToDataset(cluster, dataset_wait, dataset_tat, "RR (q=2)");
         for(Process p : processes3) p.reset();
 
+
         //5. RR (q=4)
         RR rr4= new RR(4);
         List<Process> rr_res4 = new ArrayList<>(rr4.schedule(processes3));
@@ -122,6 +119,8 @@ public class Main {
 
         addToDataset(cluster, dataset_wait, dataset_tat, "RR (q=4)");
         for(Process p : processes3) p.reset();
+
+
 
         //6. RR (q=8)
 
@@ -138,7 +137,7 @@ public class Main {
         addToDataset(cluster, dataset_wait, dataset_tat, "RR (q=8)");
         for(Process p : processes3) p.reset();
 
-/*
+
 
 
         //7. HRRN
@@ -191,11 +190,13 @@ public class Main {
 
         addToDataset(cluster, dataset_wait, dataset_tat, "MLFB2");
         for(Process p : processes3) p.reset();
-*/
+
 
         // Plotten
         plot( "Gen. Tat", dataset_tat );
         plot( "Waittime", dataset_wait );
+
+
 
 
     }
